@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <title>Boldog Karácsonyt</title>
+    <style>
+        p{
+            color: rgb(189, 0, 0);
+            font-size: 48px;
+        }
+
+        .idezetalatt{
+            display: block;
+            margin: auto;
+            width: 300 px;
+            height: auto;
+        }
+
+        body {
+            margin: 0;
+            background-color: rgb(189, 0, 0);
+            color: white;
+            font-family: Arial, sans-serif;
+            overflow-y: auto;
+            overflow-x: hidden;
+            text-align: center;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .header img {
+            width: 400px;
+            height: auto;
+            background: transparent;
+        }
+
+        h1 {
+            color: rgb(255, 255, 255);
+            font-size: 48px;
+            margin: 20px 0;
+            font-family: 'Times New Roman', Times, serif;
+        }
+
+        .quote {
+            font-size: 32px;
+            font-style: italic;
+            margin-top: 10px;
+            font-weight: bold;
+            font-family: 'Times New Roman', Times, serif;
+        }
+
+        canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <img src="mamakari1.png">
+        <img src="mamakari4.png">
+        <img src="mamakari3.png">
+    </div>
+
+    <h1>Boldog karácsonyt Mama és Papa! <br>
+        Zsombortól
+    </h1>
+
+    <div class="idezetalatt">
+        <img src="mamakari2.png">
+    </div>
+
+    <div class="quote">
+        Köszönök mindent, amit tettetek értem
+    </div>
+
+    <div>
+        <p>
+            aaaaaaaa
+        </p>
+    </div>
+
+    <canvas id="snow"></canvas>
+
+    <script>
+        const canvas = document.getElementById("snow");
+        const ctx = canvas.getContext("2d");
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        let flakes = [];
+
+        for (let i = 0; i < 100; i++) {
+            flakes.push({
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                r: Math.random() * 4 + 1,
+                d: Math.random() * 1 + 0.5
+            });
+        }
+
+        function drawSnow() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = "white";
+            ctx.beginPath();
+            for (let f of flakes) {
+                ctx.moveTo(f.x, f.y);
+                ctx.arc(f.x, f.y, f.r, 0, Math.PI * 2);
+            }
+            ctx.fill();
+            moveSnow();
+        }
+
+        function moveSnow() {
+            for (let f of flakes) {
+                f.y += f.d;
+                if (f.y > canvas.height) {
+                    f.y = 0;
+                    f.x = Math.random() * canvas.width;
+                }
+            }
+        }
+
+        setInterval(drawSnow, 30);
+
+        window.addEventListener("resize", () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+    </script>
+
+</body>
+</html>
